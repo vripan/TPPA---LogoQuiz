@@ -30,6 +30,8 @@ gen/
 out/
 release/
 
+*.png
+
 # Gradle files
 .gradle/
 build/

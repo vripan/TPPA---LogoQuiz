@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LogoQuiz</string>
+    <string name="logo_to_guess">logo_to_guess</string>
 </resources>
