@@ -27,7 +27,6 @@ public class GameSession {
 
     public void increaseScore() {
         score += 1;
-
     }
 
     public void decreaseScore() {

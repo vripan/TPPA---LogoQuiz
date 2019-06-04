@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -41,6 +42,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         displayNextLogo();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        GameManager.getInstanceWithoutContext().updateMaxScore(session.getScore());
+    }
+
     private void bind() {
         ans_1 = findViewById(R.id.ans_1_b);
         ans_2 = findViewById(R.id.ans_2_b);
@@ -56,6 +64,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         btn_default = ans_1.getBackground();
 
+        StringBuilder scoreBuilder = new StringBuilder()
+                .append("Score: ")
+                .append(session.getScore());
+
+        score_label.setText(scoreBuilder.toString());
     }
 
     public void displayNextLogo() {
@@ -66,12 +79,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
+        score_label.setText("Score: " + session.getScore());
+
         List<String> answers = logo.getPossibleAnswersRandomized();
 
-        ans_1.setBackgroundColor(Color.TRANSPARENT);
-        ans_2.setBackgroundColor(Color.TRANSPARENT);
-        ans_3.setBackgroundColor(Color.TRANSPARENT);
-        ans_4.setBackgroundColor(Color.TRANSPARENT);
+        ans_1.setBackgroundColor(Color.GRAY);
+        ans_2.setBackgroundColor(Color.GRAY);
+        ans_3.setBackgroundColor(Color.GRAY);
+        ans_4.setBackgroundColor(Color.GRAY);
 
         ans_1.setText(answers.get(0));
         ans_2.setText(answers.get(1));
